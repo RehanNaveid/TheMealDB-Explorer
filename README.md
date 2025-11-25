@@ -68,19 +68,22 @@ https://www.themealdb.com/api/json/v1/1/
 ## 5. Running the Application
 
 ### Backend
+```
 cd backend
 mvn spring-boot:run
-
-
+```
+```
 ### Frontend
 cd frontend
 npm install
 npm run dev
-
+```
 
 ---
 
 ## 6. Project Structure
+
+```
 
 TheMealDB-Explorer/
 ├── backend/
@@ -93,8 +96,7 @@ TheMealDB-Explorer/
 │   └── package.json
 ├── assets/            # screenshots
 └── README.md
-
-
+```
 
 ---
 
