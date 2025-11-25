@@ -1,143 +1,122 @@
-```markdown
 # TheMealDB Explorer
 
-TheMealDB Explorer is a full-stack web application for organized browsing of meals, categories, and recipes using TheMealDB public API. It features a Spring Boot backend with efficient standardized responses and caching, and a React frontend delivering a clear, responsive user experience.
+TheMealDB Explorer is a full-stack web application for browsing meals, exploring categories, and viewing detailed recipes via TheMealDB public API. It consists of a Spring Boot backend (REST + caching) and a React frontend (responsive UI).
 
 ---
 
-## 🚀 Project Overview
+## 1. Project Overview
 
-- Simplifies TheMealDB (`https://www.themealdb.com/api.php`) with clean REST endpoints
-- Backend caches responses to minimize redundant API calls
-- Frontend emphasizes clarity, speed, and usability
-- Demonstrates clean API design, effective caching, and modern UI
-- 100% local runnable—no external database required
+- Simplifies TheMealDB API with clean REST endpoints.  
+- Backend caches responses to prevent redundant upstream calls and returns consistent JSON envelopes.  
+- Frontend focuses on clarity, responsiveness, and low overhead.  
+- Entire project runs locally; no external databases or services are required.
 
 ---
 
-## ⚙️ Architecture
+## 2. Architecture
 
 ### Backend (Spring Boot)
-- Proxies TheMealDB API with Spring RestClient
-- Caffeine-based in-memory caching: TTL + max size
-- Unified API response format:
-  ```
-  {
-    "status": "ok",
-    "cached": false,
-    "data": { ... }
-  }
-  ```
-- Cache key normalization for reliable hits
+- Proxies TheMealDB API using Spring’s RestClient.  
+- Implements in-memory caching using Caffeine (TTL + max size).  
+- Normalizes cache keys for reliable cache hit detection.  
+- Returns unified API response format:
+
 
 ### Frontend (React + Vite)
-- Uses Fetch API to call backend endpoints only
-- Features: search, category browsing, filtering, random meal, recipe details
-- Extracts up to 20 ingredients per meal
-- Embeds YouTube tutorial for recipes (if available)
-- CSS Grid & Flexbox for responsiveness
+- Communicates exclusively with the backend using Fetch API.  
+- Features include search, category browsing, filtering, random meal loading, and detailed recipe display.  
+- Dynamically extracts up to 20 ingredients per recipe.  
+- Embeds YouTube videos when available.  
+- Uses CSS Grid and Flexbox for a responsive layout.
 
 ---
 
-## 📚 Backend API Endpoints
+## 3. Backend Endpoints
 
-| Endpoint                | Description                         |
-|-------------------------|-------------------------------------|
-| `GET /api/search?q={}`  | Search meals by name                |
-| `GET /api/categories`   | Retrieve all categories             |
-| `GET /api/category/{}`  | Meals within a category             |
-| `GET /api/random`       | Retrieve a random meal              |
-| `GET /api/meal/{id}`    | Detailed information for meal ID     |
+| Endpoint                | Description                   |
+|-------------------------|-------------------------------|
+| GET /api/search?q={x}   | Search meals by name          |
+| GET /api/categories     | List all categories           |
+| GET /api/category/{x}   | List meals in a category      |
+| GET /api/random         | Retrieve a random meal        |
+| GET /api/meal/{id}      | Retrieve meal details         |
 
-- Upstream: [https://www.themealdb.com/api/json/v1/1/](https://www.themealdb.com/api/json/v1/1/)
+Upstream source:  
+https://www.themealdb.com/api/json/v1/1/
 
 ### Caching Configuration
-- **Provider:** Caffeine
-- **Max Entries:** 500
-- **Expiry:** 1 hour
-- **Cached:** search results, categories, category meals, meal details
-- **Not Cached:** random meal
+- Cache provider: Caffeine  
+- Max size: 500 entries  
+- Expiry: 1 hour  
+- Cached: search results, categories, category meals, meal details  
+- Not cached: random meal (to preserve randomness)
 
 ---
 
-## 💡 Frontend Features
+## 4. Frontend Features
 
-- Search meals by name
-- Browse all categories
-- View meals in a category
-- Full recipe details: ingredients, instructions, embedded YouTube video
-- Generate random meal
-- Responsive layout (mobile + desktop)
-- **Config:**  
-  Set API url via `.env`:
-  ```
-  VITE_API_URL=http://localhost:8080/api
-  ```
+- Search meals by name  
+- Browse all available categories  
+- View meals within a category  
+- Detailed recipe view: ingredients, instructions, and embedded YouTube video  
+- Random meal generation  
+- Responsive design for mobile and desktop screens  
+- Environment configuration:
 
 ---
 
-## 🛠️ Getting Started
+## 5. Running the Application
 
 ### Backend
-
-```
 cd backend
 mvn spring-boot:run
-# Runs at http://localhost:8080
-```
+
 
 ### Frontend
-
-```
 cd frontend
 npm install
 npm run dev
-# Runs at http://localhost:5173
-```
+
 
 ---
 
-## 📂 Project Structure
+## 6. Project Structure
 
-```
 TheMealDB-Explorer/
- ├── backend/
- │    ├── src/main/java/com/example/mealapi/
- │    ├── src/main/resources/
- │    └── pom.xml
- ├── frontend/
- │    ├── src/
- │    ├── public/
- │    └── package.json
- ├── assets/            # screenshots
- └── README.md
-```
+├── backend/
+│ ├── src/main/java/com/example/mealapi/
+│ ├── src/main/resources/
+│ └── pom.xml
+├── frontend/
+│ ├── src/
+│ ├── public/
+│ └── package.json
+├── assets/ # Screenshots
+└── README.md
+
 
 ---
 
-## 🖼️ Screenshots
+## 7. Screenshots
 
-Place screenshots in `assets/` folder and reference as follows:
+output screenshots are in the `assets/` directory:
 - ![Search](./assets/search.png)
 - ![Category Meals](./assets/category-meals.png)
 - ![Meal Details](./assets/meal-details.png)
 
+---
+
+## 8. Notes
+
+- Caffeine was selected for its simplicity and high performance in local development.  
+- Cache keys are normalized to avoid misses due to case or whitespace differences.  
+- Unified response envelopes simplify frontend integration and improve consistency.  
+- The frontend intentionally avoids unnecessary libraries or complexity.
 
 ---
 
-## 📝 Notes
+## 9. Conclusion
 
-- Caffeine chosen for development simplicity and speed
-- Cache keys are normalized for consistent lookups
-- API responses use a predictable envelope for frontend integration
-- Minimal frontend, avoids unnecessary libraries
+TheMealDB Explorer fulfills all assignment requirements: local execution, RESTful design, effective caching, responsive UI, and clear architectural separation.  
+It demonstrates practical full-stack development skills using Spring Boot and React.
 
----
-
-## ✅ Conclusion
-
-TheMealDB Explorer meets assignment requirements: local execution, REST APIs, caching, responsive UI, and a clean split between frontend and backend.  
-This project showcases robust full-stack engineering using Spring Boot and React.
-
----
-```
