@@ -84,15 +84,16 @@ npm run dev
 
 TheMealDB-Explorer/
 ├── backend/
-│ ├── src/main/java/com/example/mealapi/
-│ ├── src/main/resources/
-│ └── pom.xml
+│   ├── src/main/java/com/example/mealapi/
+│   ├── src/main/resources/
+│   └── pom.xml
 ├── frontend/
-│ ├── src/
-│ ├── public/
-│ └── package.json
-├── assets/ # Screenshots
+│   ├── src/
+│   ├── public/
+│   └── package.json
+├── assets/            # screenshots
 └── README.md
+
 
 
 ---
